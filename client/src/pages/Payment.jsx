@@ -92,7 +92,7 @@ const Payment = () => {
 
       // Step 1: Create order on backend
       const orderResponse = await axios.post(
-        'http://localhost:8000/api/payment/create-order',
+        `${import.meta.env.BACKEND_URL}/api/payment/create-order`,
         { amount: checkoutData.totalAmount }
       );
 
@@ -120,7 +120,7 @@ const Payment = () => {
             // Step 3: Verify payment on backend and create order
             console.log('🔄 Verifying payment on server...');
             const verifyResponse = await axios.post(
-              'http://localhost:8000/api/payment/verify-payment',
+              `${import.meta.env.BACKEND_URL}/api/payment/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
