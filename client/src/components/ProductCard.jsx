@@ -8,7 +8,6 @@ const ProductCard = ({ product }) => {
   const { addToCart, cartItems } = useCart();
   const [added, setAdded] = useState(false);
 
-  // ✅ FIX: use id instead of _id
   const inCart = cartItems.find((i) => i.id === product.id);
 
   const handleAdd = (e) => {

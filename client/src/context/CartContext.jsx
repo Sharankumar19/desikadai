@@ -5,7 +5,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     try {
-      const stored = localStorage.getItem('plantify_cart');
+      const stored = localStorage.getItem('Desikadai_cart');
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -14,12 +14,12 @@ export const CartProvider = ({ children }) => {
 
   // Persist to localStorage on change
   useEffect(() => {
-    localStorage.setItem('plantify_cart', JSON.stringify(cartItems));
+    localStorage.setItem('Desikadai_cart/api/products/1', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prev) => {
-      const existing = prev.find((item) => item._id === product._id);
+      const existing = prev.find((item) => item._id === product.id);
       if (existing) {
         return prev.map((item) =>
           item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
@@ -30,13 +30,13 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId) => {
-    setCartItems((prev) => prev.filter((item) => item._id !== productId));
+    setCartItems((prev) => prev.filter((item) => item.id !== productId));
   };
 
   const updateQuantity = (productId, quantity) => {
     if (quantity < 1) return removeFromCart(productId);
     setCartItems((prev) =>
-      prev.map((item) => (item._id === productId ? { ...item, quantity } : item))
+      prev.map((item) => (item.id === productId ? { ...item, quantity } : item))
     );
   };
 

@@ -11,17 +11,13 @@ const Payment = () => {
   const { clearCart } = useCart();
 
   const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [success, setSuccess] = useState(false);
   const [orderId, setOrderId] = useState('');
   const [error, setError] = useState('');
 
-  const UPI_ID = 'saranrocks1999@okicici';
-  const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${UPI_ID}&pn=Plantify&am=${checkoutData?.totalAmount}&cu=INR`;
-
   // Initialize EmailJS on component mount
   useEffect(() => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'bagNmPZDHo4kfgGdj');
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
     console.log('✅ EmailJS initialized');
   }, []);
 
@@ -34,12 +30,6 @@ const Payment = () => {
       </div>
     );
   }
-
-  const copyUpi = () => {
-    navigator.clipboard.writeText(UPI_ID);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   // Send Invoice via EmailJS
   const sendInvoiceEmail = async (orderIdValue, paymentId) => {
@@ -118,8 +108,8 @@ const Payment = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_SWduLofwPvOs0i',
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
-        name: 'Plantify 🌿',
-        description: 'Plant Shop Order Payment',
+        name: 'Desikadai 🌿',
+        description: 'Desikadai Order Payment',
         order_id: razorpayOrder.id,
 
         handler: async function (response) {
@@ -137,7 +127,7 @@ const Payment = () => {
                 razorpay_signature: response.razorpay_signature,
                 customer: checkoutData.customer,
                 items: checkoutData.items.map((item) => ({
-                  productId: item._id,
+                  productId: item.id,
                   name: item.name,
                   price: item.price,
                   quantity: item.quantity,
@@ -232,30 +222,6 @@ const Payment = () => {
       <h1 className="text-3xl font-bold mb-8">Complete Payment</h1>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* LEFT - UPI */}
-        {/* <div className="p-6 border rounded-xl shadow">
-          <h2 className="text-xl font-semibold mb-4">Pay via UPI</h2>
-
-          <div className="text-center mb-4">
-            <p className="text-sm">Amount</p>
-            <p className="text-3xl font-bold">₹{checkoutData.totalAmount}</p>
-          </div>
-
-          <div className="flex flex-col items-center mb-4">
-            <img src={QR_URL} alt="QR" className="w-40 h-40" />
-          </div>
-
-          <div className="flex justify-between items-center border p-3 rounded">
-            <span>{UPI_ID}</span>
-            <button
-              onClick={copyUpi}
-              className="text-sm px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200"
-            >
-              {copied ? '✅ Copied' : 'Copy'}
-            </button>
-          </div>
-        </div> */}
-
         {/* RIGHT - RAZORPAY */}
         <div className="p-6 border rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-4">🔐 Pay via Razorpay</h2>
@@ -296,8 +262,6 @@ const Payment = () => {
           </button>
 
           <p className="text-xs text-gray-500 mt-4 text-center">
-            For test mode: use card 4111 1111 1111 1111
-            <br />
             ✅ Invoice will be sent to your email after payment
           </p>
         </div>

@@ -64,8 +64,8 @@ const handleSubmit = (e) => {
 
   // ✅ Step 3: Send Email (NEW CODE)
   emailjs.send(
-    'service_s9u9chn',
-    'template_7dxs87j', // ⚠️ check spelling (you wrote "emplate" before ❌)
+    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j', // ⚠️ check spelling (you wrote "emplate" before ❌)
     {
       name: form.name,
       phone: form.phone,
@@ -73,9 +73,11 @@ const handleSubmit = (e) => {
       address: form.address,
       order_id: Date.now(),
       order_details: orderDetails,
+      shipping: 20,
+      tax: 0,
       total: total
     },
-    'bagNmPZDHo4kfgGdj'
+    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
   )
   .then(() => {
     console.log("Email sent ✅");
@@ -117,7 +119,7 @@ const handleSubmit = (e) => {
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Ravi Kumar"
+                  placeholder="Name"
                   className={`input-field ${errors.name ? 'border-red-300 focus:ring-red-300' : ''}`}
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
@@ -149,7 +151,7 @@ const handleSubmit = (e) => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="ravi@example.com"
+                  placeholder="example@gmail.com"
                   className={`input-field ${errors.email ? 'border-red-300 focus:ring-red-300' : ''}`}
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}

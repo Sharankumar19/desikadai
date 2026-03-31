@@ -48,14 +48,14 @@ const Cart = () => {
                   {/* Quantity Controls */}
                   <div className="flex items-center gap-2 bg-forest-50 rounded-full px-1 py-1">
                     <button
-                      onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-forest-100 transition-colors text-moss font-bold"
                     >
                       −
                     </button>
                     <span className="w-6 text-center font-semibold text-stone-700 text-sm">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-forest-100 transition-colors text-moss font-bold"
                     >
                       +
@@ -67,7 +67,7 @@ const Cart = () => {
                       ₹{(item.price * item.quantity).toFixed(2)}
                     </span>
                     <button
-                      onClick={() => removeFromCart(item._id)}
+                      onClick={() => removeFromCart(item.id)}
                       className="text-red-300 hover:text-red-500 transition-colors p-1"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

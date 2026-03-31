@@ -3,7 +3,7 @@ import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import Spinner from '../components/Spinner';
 
-const CATEGORIES = ['all', 'grow bag', 'outdoor', 'fertilizers', 'accessories', 'seeds'];
+const CATEGORIES = ['all', 'grow bag', 'Laundry Essentials', 'fertilizers', 'accessories', 'seeds'];
 
 const Home = () => {
   const [products, setProducts] = useState([]);

@@ -133,14 +133,14 @@ const Contact = () => {
                   <div>
                     <label className="block text-sm font-medium text-stone-700 mb-1.5">Your Name *</label>
                     <input type="text" name="name" value={form.name} onChange={handleChange}
-                      placeholder="Sharan Kumar"
+                      placeholder="Name"
                       className={`input-field ${errors.name ? 'border-red-300' : ''}`} />
                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-stone-700 mb-1.5">Email Address *</label>
                     <input type="email" name="email" value={form.email} onChange={handleChange}
-                      placeholder="sharan@example.com"
+                      placeholder="example@gmail.com"
                       className={`input-field ${errors.email ? 'border-red-300' : ''}`} />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>

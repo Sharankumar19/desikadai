@@ -6,59 +6,9 @@ const BLOGS = [
     date: 'March 20, 2026',
     readTime: '4 min read',
     excerpt: 'Looking to start a terrace garden? Discover the best grow bags for vegetables, flowers, and fruits. Durable, reusable, and perfect for small spaces.',
-    image: 'https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=600&h=400&fit=crop',
+    image: 'https://res.cloudinary.com/dyhe8bh7q/image/upload/v1774885733/valeriia-miller-_42NKYROG7g-unsplash_bloqu8.jpg',
     emoji: '🪴',
-  },
-  {
-    id: 2,
-    title: 'Top Plant Accessories Every Beginner Needs',
-    category: 'Accessories',
-    date: 'March 18, 2026',
-    readTime: '5 min read',
-    excerpt: 'From watering cans to soil mix, explore must-have gardening tools that make plant care easier and more effective.',
-    image: 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=600&h=400&fit=crop',
-    emoji: '🛠️',
-  },
-  {
-    id: 3,
-    title: 'How to Use Washing Machine Drum Cleaner Properly',
-    category: 'Home Care',
-    date: 'March 10, 2026',
-    readTime: '3 min read',
-    excerpt: 'Keep your washing machine fresh and odor-free. Learn how to use drum cleaning powder and maintain hygiene at home.',
-    image: 'https://images.unsplash.com/photo-1626808642875-0aa545482dfb?w=600&h=400&fit=crop',
-    emoji: '🧼',
-  },
-  {
-    id: 4,
-    title: 'Natural Skincare with Aloe Vera & Plant-Based Products',
-    category: 'Skincare',
-    date: 'March 5, 2026',
-    readTime: '6 min read',
-    excerpt: 'Discover how plant-based skincare products like aloe vera can improve your skin naturally without harmful chemicals.',
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=400&fit=crop',
-    emoji: '✨',
-  },
-  {
-    id: 5,
-    title: 'Indoor Plants That Improve Air Quality',
-    category: 'Plants',
-    date: 'February 28, 2026',
-    readTime: '4 min read',
-    excerpt: 'Bring freshness into your home with indoor plants that purify air and create a peaceful environment.',
-    image: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=600&h=400&fit=crop',
-    emoji: '🌿',
-  },
-  {
-    id: 6,
-    title: 'Terrace Gardening: Start Your Own Organic Garden',
-    category: 'Gardening',
-    date: 'February 20, 2026',
-    readTime: '7 min read',
-    excerpt: 'Learn how to grow vegetables at home using grow bags, organic soil, and simple techniques.',
-    image: 'https://images.unsplash.com/photo-1587334274328-64186a80aeee?w=600&h=400&fit=crop',
-    emoji: '🏡',
-  },
+  }
 ];
 
 const categoryColors = {
@@ -88,7 +38,7 @@ const Blog = () => (
         <div className="p-8 md:p-10 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-4">
             <span className={`text-xs font-medium px-3 py-1 rounded-full ${categoryColors[BLOGS[0].category]}`}>{BLOGS[0].category}</span>
-            <span className="text-xs text-stone-400">Featured</span>
+            <span className="text-xs bg-red-500 px-3 py-1  text-white rounded-full animate-pulse">comming soon</span>
           </div>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-stone-800 mb-4 leading-tight">{BLOGS[0].title}</h2>
           <p className="text-stone-500 leading-relaxed mb-6">{BLOGS[0].excerpt}</p>
