@@ -39,7 +39,7 @@ const Payment = () => {
       console.log('Payment ID:', paymentId);
       console.log('Customer Email:', checkoutData.customer.email);
 
-      const itemsText = checkoutData.items
+      const itemsText = (checkoutData.items || [])
         .map((item) => `${item.name} x${item.quantity} = ₹${(item.price * item.quantity).toFixed(2)}`)
         .join('\n');
 

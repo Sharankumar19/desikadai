@@ -52,7 +52,7 @@ const Blog = () => (
 
     {/* Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {BLOGS.slice(1).map((post) => (
+      {BLOGS?.slice(1).map((post) => (
         <div key={post.id} className="card overflow-hidden group cursor-pointer">
           <div className="overflow-hidden h-48">
             <img src={post.image} alt={post.title}
