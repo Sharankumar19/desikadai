@@ -157,7 +157,7 @@ const Home = () => {
             <p className="text-red-500 font-medium">{error}</p>
             <p className="text-stone-400 text-sm mt-2">Check your network or backend connection.</p>
           </div>
-        ) : products.length === 0 ? (
+        ) : products?.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-4xl mb-4">🔍</p>
             <p className="text-stone-600 font-medium">No plants found</p>

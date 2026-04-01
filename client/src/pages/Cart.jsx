@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
 
-  if (cartItems.length === 0) {
+  if (cartItems?.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <p className="text-7xl mb-6">🛒</p>
