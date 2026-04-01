@@ -23,7 +23,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/products/${id}`);
+        const res = await axios.get(`https://desikadai-backend.onrender.com/api/products/${id}`);
         const data = res.data.data;
 
         setProduct(data);

@@ -31,8 +31,9 @@ const Home = () => {
         const params = {};
         if (debouncedSearch) params.search = debouncedSearch;
         if (category !== 'all') params.category = category;
-        const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/products`, { params });
+        const res = await axios.get(`https://desikadai-backend.onrender.com/api/products`, { params });
         setProducts(res.data.data);
+        console.log(res.data.data,"https")
       } catch (err) {
         setError('Failed to load products. Please make sure the backend is running.');
       } finally {
@@ -46,7 +47,7 @@ const Home = () => {
   // Pagination calculations
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  // const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (

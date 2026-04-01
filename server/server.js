@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Connect to PostgreSQL
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 
 sequelize.authenticate()
   .then(() => {
@@ -36,7 +36,7 @@ sequelize.authenticate()
     return sequelize.sync(); // Sync models
   })
   .then(async() => {
-    // await seedProducts();
+    await seedProducts();
     app.listen(PORT, () => {
       console.log(`🌿 Server running on port ${PORT}`);
       // console.log(`🌿 Server running on http://localhost:${PORT}`);
