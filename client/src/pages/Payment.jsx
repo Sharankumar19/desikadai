@@ -92,7 +92,7 @@ const Payment = () => {
 
       // Step 1: Create order on backend
       const orderResponse = await axios.post(
-        `${import.meta.env.BACKEND_URL}/api/payment/create-order`,
+        `https://desikadai-backend.onrender.com/api/payment/create-order`,
         { amount: checkoutData.totalAmount }
       );
 
@@ -120,7 +120,7 @@ const Payment = () => {
             // Step 3: Verify payment on backend and create order
             console.log('🔄 Verifying payment on server...');
             const verifyResponse = await axios.post(
-              `${import.meta.env.BACKEND_URL}/api/payment/verify-payment`,
+              `https://desikadai-backend.onrender.com/api/payment/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

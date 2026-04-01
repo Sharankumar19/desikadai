@@ -33,7 +33,6 @@ const Home = () => {
         if (category !== 'all') params.category = category;
         const res = await axios.get(`https://desikadai-backend.onrender.com/api/products`, { params });
         setProducts(res.data.data);
-        console.log(res.data.data,"https")
       } catch (err) {
         setError('Failed to load products. Please make sure the backend is running.');
       } finally {
@@ -68,7 +67,7 @@ const Home = () => {
               <span className="italic text-forest-200">Into Your Home</span>
             </h1>
             <p className="text-forest-100 text-lg leading-relaxed mb-8 max-w-lg">
-              Discover our handpicked collection of beautiful plants, succulents, and accessories. Free delivery on orders.
+              Discover our handpicked collection of beautiful plants, succulents, and accessories. Free delivery for all orders.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="#products" className="bg-white text-moss px-6 py-3 rounded-full font-semibold hover:bg-forest-50 transition-all shadow-md hover:shadow-lg active:scale-95">
@@ -87,10 +86,9 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center md:justify-between gap-4 text-sm text-stone-600">
             {[
-              ['🚚', 'Free delivery above ₹999'],
+              ['🚚', 'Free delivery'],
               ['🌿', '100% naturally grown'],
               ['📦', 'Safe & secure packaging'],
-              ['↩️', '7-day easy returns'],
             ].map(([icon, text]) => (
               <div key={text} className="flex items-center gap-2">
                 <span>{icon}</span>
