@@ -18,17 +18,17 @@
 
 
 // production
-import { Sequelize } from "sequelize";
+require('dotenv').config();
+const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "mysql",
-  logging: false,
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // 🔥 THIS FIXES YOUR ERROR
+      rejectUnauthorized: false,
     },
   },
 });
 
-export default sequelize;
+module.exports = sequelize;
