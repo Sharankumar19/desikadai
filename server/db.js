@@ -18,17 +18,17 @@
 
 
 // production
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
+import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'mysql',
+  dialect: "mysql",
+  logging: false,
   dialectOptions: {
     ssl: {
-      rejectUnauthorized: true, // needed for Railway/MySQL cloud
+      require: true,
+      rejectUnauthorized: false, // 🔥 THIS FIXES YOUR ERROR
     },
   },
-  logging: false,
 });
 
-module.exports = sequelize;
+export default sequelize;
