@@ -31,7 +31,7 @@ const Home = () => {
         const params = {};
         if (debouncedSearch) params.search = debouncedSearch;
         if (category !== 'all') params.category = category;
-        const res = await axios.get('/api/products', { params });
+        const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/products`, { params });
         setProducts(res.data.data);
       } catch (err) {
         setError('Failed to load products. Please make sure the backend is running.');
