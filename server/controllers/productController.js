@@ -21,9 +21,7 @@ Perfect for terrace gardens, balconies, windowsills, and kitchen gardens, these 
     ],
     price: 599,
     images: [
-      "http://localhost:8000/images/growbag12x6.jpg",
-      "https://images.unsplash.com/photo-1599598425947-5202edd56fde?w=400&h=400&fit=crop",
-      "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=400&h=400&fit=crop"
+      "https://res.cloudinary.com/dyhe8bh7q/image/upload/v1774669513/growbag12x6_gezerp.jpg",
     ],
     category: 'grow bag',
     featured: true,

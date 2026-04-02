@@ -95,7 +95,7 @@ const Contact = () => {
         {/* Contact Info */}
         <div className="space-y-4">
           {[
-            { icon: '📧', title: 'Email Us', value: 'arul93101@gmail.com', sub: 'We reply within 24 hours' },
+            { icon: '📧', title: 'Email Us', value: 'desikadai8@gmail.com', sub: 'We reply within 24 hours' },
             { icon: '📞', title: 'Call Us', value: '+91 8300621315', sub: 'Mon–Sat, 9AM–6PM IST' },
             { icon: '📍', title: 'Visit Us', value: 'Villupuram', sub: 'Tamil Nadu 605602, India' },
             { icon: '🕐', title: 'Working Hours', value: 'Mon–Sat: 9AM–6PM', sub: 'Sunday: Closed' },
@@ -173,6 +173,26 @@ const Contact = () => {
           )}
         </div>
       </div>
+     
+     {/* Google Map */}
+<div className="mt-16">
+  <h2 className="font-display text-2xl font-semibold text-stone-800 mb-6 text-center">
+    Find Us 📍
+  </h2>
+
+  <div className="w-full h-[350px] rounded-2xl overflow-hidden shadow">
+    <iframe
+      title="Location Map"
+      src="https://www.google.com/maps?q=Villupuram,Tamil%20Nadu&output=embed"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+</div>
     </div>
   );
 };

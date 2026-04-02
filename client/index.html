@@ -10,6 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- xss security fixed on backend  -->
+        <!--  Clickjacking fallback (MOVE HERE) -->
+   <style>
+  html { display: none; }
+</style>
+
+<script>
+  if (self === top) {
+    document.documentElement.style.display = 'block';
+  } else {
+    top.location = self.location;
+  }
+</script>
   </head>
   <body>
     <div id="root"></div>

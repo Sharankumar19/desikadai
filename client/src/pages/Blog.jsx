@@ -1,14 +1,14 @@
 const BLOGS = [
-  {
-    id: 1,
-    title: 'Best Grow Bags for Home Gardening in 2026',
-    category: 'Gardening',
-    date: 'March 20, 2026',
-    readTime: '4 min read',
-    excerpt: 'Looking to start a terrace garden? Discover the best grow bags for vegetables, flowers, and fruits. Durable, reusable, and perfect for small spaces.',
-    image: 'https://res.cloudinary.com/dyhe8bh7q/image/upload/v1774885733/valeriia-miller-_42NKYROG7g-unsplash_bloqu8.jpg',
-    emoji: '🪴',
-  }
+{
+  id: 1,
+  title: 'Best Skincare Products for Healthy Glowing Skin in 2026',
+  category: 'Skincare',
+  date: 'March 20, 2026',
+  readTime: '4 min read',
+  excerpt: 'Looking to upgrade your skincare routine? Discover the best cleansers, moisturizers, and serums for healthy, glowing skin. Perfect for all skin types.',
+  image: 'https://res.cloudinary.com/dyhe8bh7q/image/upload/v1775063775/ChatGPT_Image_Apr_1_2026_08_12_42_PM_zeiqro.png',
+  emoji: '✨',
+}
 ];
 
 const categoryColors = {

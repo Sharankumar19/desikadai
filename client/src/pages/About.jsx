@@ -1,30 +1,42 @@
 import Boobalan from '../image/boobalan.jpeg';
 import Arul from '../image/arul.jpg';
 
+const REVIEWS = [
+  {
+    name: "Ramesh Kumar",
+    rating: 5,
+    review: "Excellent quality grow bags! Very strong and perfect for terrace gardening.",
+  },
+  {
+    name: "Priya S",
+    rating: 5,
+    review: "Fast delivery and good packaging. Seeds germinated quickly. Highly recommended!",
+  },
+  {
+    name: "Arun V",
+    rating: 4,
+    review: "Affordable prices and good customer support. Will buy again.",
+  },
+];
+
 const TEAM = [
   { 
     name: 'Boobalan', 
     role: 'Founder', 
     emoji: Boobalan, 
-    desc: '5+ years in horticulture. Started Plantify from her tiny apartment garden.' 
+    desc: '5+ years of experience. Started from a small setup, supplying quality grow bags, fertilizers, and seeds.' 
   },
   { 
     name: 'Arul Kumar', 
     role: 'Co-Founder', 
     emoji: Arul, 
-    desc: 'Ensures every plant reaches you healthy, on time, and beautifully packaged.' 
+    desc: 'We ensure every product is carefully packed and delivered on time, maintaining the highest quality standards.' 
   }
-  // { 
-  //   name: 'Sharan Kumar', 
-  //   role: 'Full Stack Developer', 
-  //   emoji: '💻', 
-  //   desc: 'This website was designed and developed by Sharan Kumar.' 
-  // },
 ];
 
 const STATS = [
-  { value: '5,000+', label: 'Happy Plant Parents' },
-  { value: '150+', label: 'Plant Varieties' },
+  { value: '5,000+', label: 'Happy Family`s' },
+  { value: '150+', label: 'Products' },
   { value: '4.9★', label: 'Average Rating' },
   { value: '3 Years', label: 'In Business' },
 ];
@@ -40,7 +52,7 @@ const About = () => (
           <span className="text-moss italic">Deserves Greenery</span>
         </h1>
         <p className="text-stone-500 text-lg leading-relaxed max-w-2xl mx-auto">
-          Plantify was born from a simple idea — that plants have the power to transform spaces, improve wellbeing, and connect us with nature, even in the middle of a city.
+          Desikadai was born from a simple idea — that plants have the power to transform spaces, improve wellbeing, and connect us with nature, even in the middle of a city.
         </p>
       </div>
     </section>
@@ -58,30 +70,71 @@ const About = () => (
         </div>
       </div>
     </section>
+    
+      {/* Customer Reviews */}
+<section className="bg-forest-50 py-16">
+  <div className="max-w-5xl mx-auto px-4">
+    <h2 className="font-display text-3xl font-bold text-stone-800 text-center mb-10">
+      Customer Reviews ⭐
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {REVIEWS.map((r, index) => (
+        <div key={index} className="card p-6">
+          
+          {/* Stars */}
+          <div className="text-yellow-400 mb-3">
+            {"⭐".repeat(r.rating)}
+          </div>
+
+          {/* Review */}
+          <p className="text-stone-500 text-sm mb-4 leading-relaxed">
+            "{r.review}"
+          </p>
+
+          {/* Name */}
+          <p className="font-semibold text-stone-700 text-sm">
+            – {r.name}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
     {/* Story */}
     <section className="max-w-4xl mx-auto px-4 py-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 className="font-display text-3xl font-bold text-stone-800 mb-5">How It All Started</h2>
-          <p className="text-stone-500 leading-relaxed mb-4">
-            In 2025, our founder Boobalan discovered that her overcrowded Chennai apartment felt instantly calmer after placing a few plants on the windowsill. She began gifting plants to neighbours, who started asking to buy more.
-          </p>
-          <p className="text-stone-500 leading-relaxed mb-4">
-            What began as a hobby turned into Plantify — a curated online store that sources plants from trusted nurseries across South India, ensuring every plant is healthy, pest-free, and ready to thrive in your home.
-          </p>
-          <p className="text-stone-500 leading-relaxed">
-            Today, we ship to homes across Tamil Nadu, Karnataka, and Andhra Pradesh, and we're growing every day (just like our plants).
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&h=300&fit=crop" alt="Plants" className="rounded-2xl w-full h-40 object-cover" />
-          <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=300&fit=crop" alt="Pots" className="rounded-2xl w-full h-40 object-cover mt-6" />
-          <img src="https://images.unsplash.com/photo-1585412459213-8fed31eca5b0?w=300&h=300&fit=crop" alt="Fiddle leaf" className="rounded-2xl w-full h-40 object-cover -mt-6" />
-          <img src="https://images.unsplash.com/photo-1593482892290-f54927ae1bb6?w=300&h=300&fit=crop" alt="Snake plant" className="rounded-2xl w-full h-40 object-cover" />
-        </div>
-      </div>
-    </section>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 className="font-display text-3xl font-bold text-stone-800 mb-5">
+        How It All Started
+      </h2>
+
+      <p className="text-stone-500 leading-relaxed mb-4">
+        In 2025, our founder Boobalan started with a simple mission — to make gardening easy and accessible for everyone. What began as a small local business selling grow bags, fertilizers, and seeds quickly gained the trust of home gardeners.
+      </p>
+
+      <p className="text-stone-500 leading-relaxed mb-4">
+        With a focus on quality and affordability, we carefully source durable grow bags, nutrient-rich fertilizers, and high-quality seeds that help plants grow healthier and stronger.
+      </p>
+
+      <p className="text-stone-500 leading-relaxed">
+        Today, we proudly serve customers across South India, supporting thousands of people in building their own gardens — from balconies to backyards.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4">
+      <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&h=300&fit=crop" alt="Plants" className="rounded-2xl w-full h-40 object-cover" />
+      <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=300&fit=crop" alt="Pots" className="rounded-2xl w-full h-40 object-cover mt-6" />
+     <img 
+  src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=300&h=300&fit=crop" 
+  alt="Farming" 
+  className="rounded-2xl w-full h-40 object-cover -mt-6" 
+/>
+      <img src="https://images.unsplash.com/photo-1593482892290-f54927ae1bb6?w=300&h=300&fit=crop" alt="Grow bags" className="rounded-2xl w-full h-40 object-cover" />
+    </div>
+  </div>
+</section>
 
     {/* Team */}
     <section className="bg-forest-50 py-16">
@@ -110,10 +163,26 @@ const About = () => (
       <h2 className="font-display text-3xl font-bold text-stone-800 text-center mb-10">Our Values</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: '🌱', title: 'Sustainability', desc: 'All our plants are grown without harmful pesticides.' },
-          { icon: '📦', title: 'Safe Packaging', desc: 'Plants are packed to survive transit without stress.' },
-          { icon: '❤️', title: 'Plant Love', desc: 'Every plant is inspected before it leaves our nursery.' },
-          { icon: '💬', title: 'Expert Support', desc: 'Got a plant problem? We\'re here to help, always.' },
+  { 
+    icon: '🌱', 
+    title: 'Quality Products', 
+    desc: 'We provide durable grow bags, nutrient-rich fertilizers, and high-quality seeds for better results.' 
+  },
+  { 
+    icon: '📦', 
+    title: 'Safe Packaging', 
+    desc: 'All products are securely packed to ensure safe and damage-free delivery.' 
+  },
+  { 
+    icon: '✅', 
+    title: 'Trusted Quality', 
+    desc: 'Every product is carefully checked to maintain quality and reliability.' 
+  },
+  { 
+    icon: '💬', 
+    title: 'Customer Support', 
+    desc: 'Need help? Our team is always ready to support your gardening needs.' 
+  }
         ].map(({ icon, title, desc }) => (
           <div key={title} className="text-center p-5">
             <div className="text-4xl mb-3">{icon}</div>
