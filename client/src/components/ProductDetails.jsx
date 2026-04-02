@@ -18,6 +18,10 @@ const ProductDetails = () => {
 
   // ✅ FIX: use id
   const inCart = cartItems.find((i) => i.id === Number(id));
+ 
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   useEffect(() => {
     const fetchProduct = async () => {
