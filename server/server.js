@@ -14,41 +14,42 @@ app.use(helmet());
 
 // Middleware csp security fixed
 // HTTPS
-app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://desikadai.in'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: [
+//     'http://localhost:5173',
+//     'https://desikadai.in'
+//   ],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   credentials: true
+// }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const paymentRoutes = require("./routes/paymentRoutes");
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "https://checkout.razorpay.com"
-      ],
-      connectSrc: [
-        "'self'",
-        "https://desikadai-backend.onrender.com" // 🔁 change to your backend URL in production
-      ],
-     imgSrc: [
-  "'self'",
-  "data:",
-  "blob:",
-  "https://desikadai-backend.onrender.com"
-],
-      styleSrc: ["'self'", "'unsafe-inline'"] // needed for React
-    }
-  })
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: [
+//         "'self'",
+//         "https://checkout.razorpay.com"
+//       ],
+//       connectSrc: [
+//         "'self'",
+//         "https://desikadai-backend.onrender.com" // 🔁 change to your backend URL in production
+//       ],
+//      imgSrc: [
+//   "'self'",
+//   "data:",
+//   "blob:",
+//   "https://desikadai-backend.onrender.com"
+// ],
+//       styleSrc: ["'self'", "'unsafe-inline'"] // needed for React
+//     }
+//   })
+// );
 // clickjacking
-app.use(helmet.frameguard({ action: 'deny' }));
+// app.use(helmet.frameguard({ action: 'deny' }));
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
