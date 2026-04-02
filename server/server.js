@@ -37,7 +37,12 @@ app.use(
         "'self'",
         "https://desikadai-backend.onrender.com" // 🔁 change to your backend URL in production
       ],
-      imgSrc: ["'self'", "data:"],
+     imgSrc: [
+  "'self'",
+  "data:",
+  "blob:",
+  "https://desikadai-backend.onrender.com"
+],
       styleSrc: ["'self'", "'unsafe-inline'"] // needed for React
     }
   })
