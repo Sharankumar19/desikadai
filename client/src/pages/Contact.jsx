@@ -23,33 +23,6 @@ const Contact = () => {
     if (errors[name]) setErrors((p) => ({ ...p, [name]: '' }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const errs = validate();
-  //   if (Object.keys(errs).length > 0) { 
-  //     setErrors(errs); 
-  //     return; 
-  //   }
-
-  //   // Send email using EmailJS
-  //   emailjs.send(
-  //     'service_s9u9chn',       // Replace with your EmailJS service ID
-  //     'template_8totse4',      // Replace with your EmailJS template ID
-  //     {
-  //       name: form.name,
-  //       email: form.email,
-  //       subject: form.subject,
-  //       message: form.message,
-  //     },
-  //     'bagNmPZDHo4kfgGdj'        // Replace with your EmailJS public key
-  //   ).then(() => {
-  //     setSubmitted(true);
-  //   }, (error) => {
-  //     console.error('FAILED...', error);
-  //     alert('Failed to send message. Check console.');
-  //   });
-  // };
-
    const handleSubmit = (e) => {
     e.preventDefault();
     const errs = validate();

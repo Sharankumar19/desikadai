@@ -124,8 +124,6 @@ const About = () => (
     </div>
 
     <div className="grid grid-cols-2 gap-4">
-      <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&h=300&fit=crop" alt="Plants" className="rounded-2xl w-full h-40 object-cover" />
-      <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=300&fit=crop" alt="Pots" className="rounded-2xl w-full h-40 object-cover mt-6" />
      <img 
   src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=300&h=300&fit=crop" 
   alt="Farming" 
