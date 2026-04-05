@@ -3,18 +3,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCheckout } from '../context/CheckoutContext';
 import emailjs from '@emailjs/browser';
-import axios from 'axios';
 
 const Checkout = () => {
   const { cartItems, cartTotal } = useCart();
-  // const [setLoading]=useState(false);
   const { setCheckoutData } = useCheckout();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '' });
   const [errors, setErrors] = useState({});
 
-  const deliveryFee = cartTotal >= 999 ? 0 : 20;
+  const deliveryFee = cartTotal >= 999 ? 0 : 0;
   const grandTotal = cartTotal + deliveryFee;
 
   if (cartItems?.length === 0) {
@@ -63,24 +61,24 @@ const handleSubmit = (e) => {
   );
 
   // ✅ Step 3: Send Email (NEW CODE)
-  emailjs.send(
-    import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j', // ⚠️ check spelling (you wrote "emplate" before ❌)
-    {
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
-      address: form.address,
-      order_id: Date.now(),
-      order_details: orderDetails,
-      shipping: 20,
-      tax: 0,
-      total: total
-    },
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  )
-  .then(() => {
-    console.log("Email sent ✅");
+  // emailjs.send(
+  //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  //   import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j', // ⚠️ check spelling (you wrote "emplate" before ❌)
+  //   {
+  //     name: form.name,
+  //     phone: form.phone,
+  //     email: form.email,
+  //     address: form.address,
+  //     order_id: Date.now(),
+  //     order_details: orderDetails,
+  //     shipping: 20,
+  //     tax: 0,
+  //     total: total
+  //   },
+  //   import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+  // )
+  // .then(() => {
+  //   console.log("Email sent ✅");
 
     // ✅ Step 4: Continue OLD FLOW (IMPORTANT)
     setCheckoutData({
@@ -90,11 +88,11 @@ const handleSubmit = (e) => {
     });
 
     navigate('/payment'); // 👈 old behavior restored
-  })
-  .catch((err) => {
-    console.error(err);
-    alert("Failed to send email ❌");
-  });
+  // })
+  // .catch((err) => {
+  //   console.error(err);
+  //   alert("Failed to send email ❌");
+  // });
 };
 
   return (

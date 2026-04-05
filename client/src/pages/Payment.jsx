@@ -9,17 +9,10 @@ import { useCheckout } from '../context/CheckoutContext';
 const Payment = () => {
   const { checkoutData } = useCheckout();
   const { clearCart } = useCart();
-
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [orderId, setOrderId] = useState('');
   const [error, setError] = useState('');
-
-  // Initialize EmailJS on component mount
-  useEffect(() => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-    console.log('✅ EmailJS initialized');
-  }, []);
 
   if (!checkoutData) {
     return (
@@ -70,8 +63,9 @@ const Payment = () => {
 
       const response = await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_s9u9chn',
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_8totse4',
-        templateParams
+        import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j',
+        templateParams,
+         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       console.log('✅ Invoice email sent successfully!', response);
@@ -105,7 +99,7 @@ const Payment = () => {
 
       // Step 2: Open Razorpay checkout
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_SWduLofwPvOs0i',
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         name: 'Desikadai 🌿',
@@ -115,6 +109,8 @@ const Payment = () => {
         handler: async function (response) {
           console.log('✅ Payment successful!');
           console.log('Razorpay Payment ID:', response.razorpay_payment_id);
+            setSuccess(true);
+            clearCart();
 
           try {
             // Step 3: Verify payment on backend and create order
@@ -139,6 +135,7 @@ const Payment = () => {
 
             if (verifyResponse.data.success) {
               console.log('✅ Payment verified successfully');
+
               const newOrderId = verifyResponse.data.data.orderId;
               console.log('Order ID from server:', newOrderId);
               setOrderId(newOrderId);
@@ -153,8 +150,8 @@ const Payment = () => {
                 console.warn('⚠️ Email sending failed, but order was successful');
               }
 
-              setSuccess(true);
-              clearCart();
+              // setSuccess(true);
+              // clearCart();
             } else {
               throw new Error(verifyResponse.data.message || 'Payment verification failed');
             }
