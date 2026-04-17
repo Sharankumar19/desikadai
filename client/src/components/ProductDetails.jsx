@@ -106,7 +106,7 @@ const ProductDetails = () => {
             </span>
           </p>
 
-          <button
+          {/* <button
             onClick={handleAdd}
             className={`px-6 py-3 rounded-full text-white font-medium transition-all duration-200 ${
               added
@@ -119,7 +119,26 @@ const ProductDetails = () => {
               : inCart
               ? `In Cart (${inCart.quantity})`
               : 'Add to Cart'}
-          </button>
+          </button> */}
+          <button
+  onClick={handleAdd}
+  disabled={product.product_quantity <= 0}
+  className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+    product.product_quantity <= 0
+      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+      : added
+      ? "bg-forest-100 text-forest-700"
+      : "bg-moss hover:bg-leaf shadow-sm hover:shadow-md text-white"
+  }`}
+>
+  {product.product_quantity <= 0
+    ? "Out of Stock"
+    : added
+    ? "Added!"
+    : inCart
+    ? `In Cart (${inCart.quantity})`
+    : "Add to Cart"}
+</button>
         </div>
       </div>
     </div>
