@@ -16,7 +16,7 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
   points: {
-    type: DataTypes.JSON, // Array of strings
+    type: DataTypes.JSON,
     defaultValue: [],
   },
   price: {
@@ -24,7 +24,7 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
   images: {
-    type: DataTypes.JSON, // Array of strings
+    type: DataTypes.JSON,
     defaultValue: [],
   },
   category: {
@@ -35,12 +35,14 @@ const Product = sequelize.define('Product', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+  product_quantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
   },
 }, {
   timestamps: true,
+  tableName: 'products',      // ✅ IMPORTANT
+  freezeTableName: true,      // ✅ IMPORTANT
 });
 
 module.exports = Product;

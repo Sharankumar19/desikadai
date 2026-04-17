@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCheckout } from '../context/CheckoutContext';
-import emailjs from '@emailjs/browser';
 
 const Checkout = () => {
   const { cartItems, cartTotal } = useCart();
@@ -59,28 +58,6 @@ const handleSubmit = (e) => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  // ✅ Step 3: Send Email (NEW CODE)
-  // emailjs.send(
-  //   import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  //   import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j', // ⚠️ check spelling (you wrote "emplate" before ❌)
-  //   {
-  //     name: form.name,
-  //     phone: form.phone,
-  //     email: form.email,
-  //     address: form.address,
-  //     order_id: Date.now(),
-  //     order_details: orderDetails,
-  //     shipping: 20,
-  //     tax: 0,
-  //     total: total
-  //   },
-  //   import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  // )
-  // .then(() => {
-  //   console.log("Email sent ✅");
-
-    // ✅ Step 4: Continue OLD FLOW (IMPORTANT)
     setCheckoutData({
       customer: form,
       items: cartItems,
@@ -88,11 +65,6 @@ const handleSubmit = (e) => {
     });
 
     navigate('/payment'); // 👈 old behavior restored
-  // })
-  // .catch((err) => {
-  //   console.error(err);
-  //   alert("Failed to send email ❌");
-  // });
 };
 
   return (

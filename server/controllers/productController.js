@@ -25,6 +25,7 @@ Perfect for terrace gardens, balconies, windowsills, and kitchen gardens, these 
     ],
     category: 'grow bag',
     featured: true,
+    quantity: 100
   },
 ];
 
