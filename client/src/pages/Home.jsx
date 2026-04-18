@@ -167,7 +167,7 @@ const Home = () => {
             <p className="text-stone-400 text-sm mb-6">{products.length} products found</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {currentProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
 

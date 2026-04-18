@@ -102,22 +102,22 @@ const ProductCard = ({ product }) => {
             {added ? "Added!" : "Add to Cart"}
           </button> */}
           <button
-  onClick={handleAdd}
-  disabled={product.product_quantity <= 0}
-  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 ${
-    product.product_quantity <= 0
-      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-      : added
-      ? "bg-forest-100 text-forest-700"
-      : "bg-moss text-white hover:bg-leaf shadow-sm hover:shadow-md"
-  }`}
->
-  {product.product_quantity <= 0
-    ? "Out of Stock"
-    : added
-    ? "Added!"
-    : "Add to Cart"}
-</button>
+            onClick={handleAdd}
+            disabled={product.product_quantity <= 0}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 active:scale-95 ${
+              product.product_quantity <= 0
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : added
+                  ? "bg-forest-100 text-forest-700"
+                  : "bg-moss text-white hover:bg-leaf shadow-sm hover:shadow-md"
+            }`}
+          >
+            {product.product_quantity <= 0
+              ? "Out of Stock"
+              : added
+                ? "Added!"
+                : "Add to Cart"}
+          </button>
         </div>
       </div>
     </div>
