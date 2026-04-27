@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProductCard from '../components/ProductCard';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import ProductCard from "../components/ProductCard";
 
-const CATEGORIES = ['all', 'grow bag', 'Laundry Essentials', 'fertilizers', 'skin care', 'seeds'];
+const CATEGORIES = [
+  "all",
+  "grow bag",
+  "Laundry Essentials",
+  "fertilizers",
+  "skin care",
+  "seeds",
+];
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('all');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("all");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,20 +32,22 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError('');
+      setError("");
       try {
         const params = {};
         if (debouncedSearch) params.search = debouncedSearch;
-        if (category !== 'all') params.category = category;
+        if (category !== "all") params.category = category;
 
         const res = await axios.get(
           `https://desikadai-backend.onrender.com/api/products`,
-          { params }
+          { params },
         );
 
         setProducts(res.data.data);
       } catch (err) {
-        setError('Failed to load products. Please make sure the backend is running.');
+        setError(
+          "Failed to load products. Please make sure the backend is running.",
+        );
       } finally {
         setLoading(false);
       }
@@ -51,7 +60,10 @@ const Home = () => {
   // Pagination calculations
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct,
+  );
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
@@ -77,15 +89,21 @@ const Home = () => {
             </h1>
 
             <p className="text-forest-100 text-lg leading-relaxed mb-8 max-w-lg">
-              Discover our handpicked collection of beautiful plants, succulents, and accessories.
-              Free delivery for all orders.
+              Discover our handpicked collection of beautiful plants,
+              succulents, and accessories. Free delivery for all orders.
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <a href="#products" className="bg-white text-moss px-6 py-3 rounded-full font-semibold hover:bg-forest-50 transition-all shadow-md hover:shadow-lg active:scale-95">
+              <a
+                href="#products"
+                className="bg-white text-moss px-6 py-3 rounded-full font-semibold hover:bg-forest-50 transition-all shadow-md hover:shadow-lg active:scale-95"
+              >
                 Shop Now
               </a>
-              <a href="#products" className="border-2 border-white/50 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all active:scale-95">
+              <a
+                href="#products"
+                className="border-2 border-white/50 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all active:scale-95"
+              >
                 Explore Plants
               </a>
             </div>
@@ -98,9 +116,9 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center md:justify-between gap-4 text-sm text-stone-600">
             {[
-              ['🚚', 'Free delivery'],
-              ['🌿', '100% naturally grown'],
-              ['📦', 'Safe & secure packaging'],
+              ["🚚", "Free delivery"],
+              ["🌿", "100% naturally grown"],
+              ["📦", "Safe & secure packaging"],
             ].map(([icon, text]) => (
               <div key={text} className="flex items-center gap-2">
                 <span>{icon}</span>
@@ -112,7 +130,10 @@ const Home = () => {
       </section>
 
       {/* Products Section */}
-      <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section
+        id="products"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+      >
         <div className="text-center mb-10">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">
             Our Green Collection
@@ -141,8 +162,8 @@ const Home = () => {
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2.5 rounded-full text-sm font-medium capitalize ${
                   category === cat
-                    ? 'bg-moss text-white'
-                    : 'bg-white border text-stone-600'
+                    ? "bg-moss text-white"
+                    : "bg-white border text-stone-600"
                 }`}
               >
                 {cat}
@@ -161,7 +182,10 @@ const Home = () => {
           // ✅ Skeleton Loader (CLS FIX)
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="h-72 bg-gray-200 animate-pulse rounded-xl" />
+              <div
+                key={i}
+                className="h-72 bg-gray-200 animate-pulse rounded-xl"
+              />
             ))}
           </div>
         ) : error ? (
@@ -177,18 +201,44 @@ const Home = () => {
             </div>
 
             {/* Pagination (fixed height) */}
-            <div className="flex justify-center gap-2 mt-6 min-h-[48px]">
-              <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}>
+            {/* Pagination */}
+            <div className="flex justify-center items-center gap-2 mt-6 min-h-[48px]">
+              {/* Prev */}
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 rounded border disabled:opacity-40"
+              >
                 Prev
               </button>
 
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button key={i} onClick={() => setCurrentPage(i + 1)}>
-                  {i + 1}
-                </button>
-              ))}
+              {/* Pages */}
+              {Array.from({ length: Math.max(totalPages, 1) }, (_, i) => {
+                const page = i + 1;
 
-              <button onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}>
+                return (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-3 py-1 rounded border transition ${
+                      currentPage === page
+                        ? "bg-moss text-white border-moss"
+                        : "bg-white text-stone-600 hover:bg-stone-100"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                );
+              })}
+
+              {/* Next */}
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(p + 1, totalPages || 1))
+                }
+                disabled={currentPage === totalPages || totalPages === 0}
+                className="px-3 py-1 rounded border disabled:opacity-40"
+              >
                 Next
               </button>
             </div>
