@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [captcha, setCaptcha] = useState(null);
 
   const formRef = useRef();
 
@@ -23,38 +25,79 @@ const Contact = () => {
     if (errors[name]) setErrors((p) => ({ ...p, [name]: '' }));
   };
 
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
+  //  const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const errs = validate();
+  //   if (Object.keys(errs).length > 0) {
+  //     setErrors(errs);
+  //     return;
+  //   }
 
-    // EmailJS credentials from environment variables
-    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  //   // EmailJS credentials from environment variables
+  //   const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  //   const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  //   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    emailjs
-      .send(
-        serviceID,
-        templateID,
-        {
-          name: form.name,
-          email: form.email,
-          subject: form.subject,
-          message: form.message,
-        },
-        publicKey
-      )
-      .then(() => setSubmitted(true))
-      .catch((error) => {
-        console.error('FAILED...', error);
-        alert('Failed to send message. Check console.');
-      });
-  };
+  //   emailjs
+  //     .send(
+  //       serviceID,
+  //       templateID,
+  //       {
+  //         name: form.name,
+  //         email: form.email,
+  //         subject: form.subject,
+  //         message: form.message,
+  //       },
+  //       publicKey
+  //     )
+  //     .then(() => setSubmitted(true))
+  //     .catch((error) => {
+  //       console.error('FAILED...', error);
+  //       alert('Failed to send message. Check console.');
+  //     });
+  // };
   
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const errs = validate();
+  if (Object.keys(errs).length > 0) {
+    setErrors(errs);
+    return;
+  }
+
+  // ✅ CAPTCHA CHECK
+  if (!captcha) {
+    alert("Please verify you are not a robot");
+    return;
+  }
+
+  const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  emailjs
+    .send(
+      serviceID,
+      templateID,
+      {
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      },
+      publicKey
+    )
+    .then(() => {
+      setSubmitted(true);
+      setCaptcha(null); // reset
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Failed to send message");
+    });
+};
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
@@ -138,6 +181,15 @@ const Contact = () => {
                     rows={5} className={`input-field resize-none ${errors.message ? 'border-red-300' : ''}`} />
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
+                <div className="mt-2">
+<ReCAPTCHA
+  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+  onChange={(token) => {
+    console.log("CAPTCHA TOKEN:", token);
+    setCaptcha(token);
+  }}
+/>
+</div>
                 <button type="submit" className="btn-primary w-full py-3 text-base">
                   Send Message 📧
                 </button>
