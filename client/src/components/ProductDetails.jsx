@@ -105,23 +105,9 @@ const ProductDetails = () => {
               {product.category}
             </span>
           </p>
-
-          {/* <button
-            onClick={handleAdd}
-            className={`px-6 py-3 rounded-full text-white font-medium transition-all duration-200 ${
-              added
-                ? 'bg-forest-100 text-forest-700'
-                : 'bg-moss hover:bg-leaf shadow-sm hover:shadow-md'
-            }`}
-          >
-            {added
-              ? 'Added!'
-              : inCart
-              ? `In Cart (${inCart.quantity})`
-              : 'Add to Cart'}
-          </button> */}
           <button
   onClick={handleAdd}
+  aria-label="add-to-cart"
   disabled={product.product_quantity <= 0}
   className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
     product.product_quantity <= 0

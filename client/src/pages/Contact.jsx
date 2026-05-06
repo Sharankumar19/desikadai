@@ -138,7 +138,7 @@ const Contact = () => {
               </div>
               <h3 className="font-display text-2xl font-bold text-stone-800 mb-3">Message Sent! 🌿</h3>
               <p className="text-stone-500 mb-6">Thanks for reaching out, <strong>{form.name}</strong>! We'll get back to you at <strong>{form.email}</strong> within 24 hours.</p>
-              <button onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: '', message: '' }); }}
+              <button aria-label='contact-submit' onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: '', message: '' }); }}
                 className="btn-secondary">Send Another Message</button>
             </div>
           ) : (
@@ -190,7 +190,7 @@ const Contact = () => {
   }}
 />
 </div>
-                <button type="submit" className="btn-primary w-full py-3 text-base">
+                <button aria-label='send-msg' type="submit" className="btn-primary w-full py-3 text-base">
                   Send Message 📧
                 </button>
               </form>

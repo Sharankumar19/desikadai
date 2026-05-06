@@ -97,7 +97,7 @@ const Blog = () => {
               <div className="text-xs text-stone-400">
                 {BLOGS[0].date} · {BLOGS[0].readTime}
               </div>
-              <button className="btn-primary text-sm px-5 py-2">
+              <button aria-label="read-more" className="btn-primary text-sm px-5 py-2">
                 Read More →
               </button>
             </div>
@@ -109,6 +109,7 @@ const Blog = () => {
       <div className="flex justify-center gap-3 mb-10">
         {["gallery", "feedback", "videos"].map((t) => (
           <button
+          aria-label="grid-button"
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-full text-sm font-medium capitalize transition ${

@@ -222,6 +222,7 @@ const Checkout = () => {
               </div>
 
               <button
+              aria-label="checkout"
                 type="submit"
                 className="btn-primary w-full py-3 text-base mt-4"
               >

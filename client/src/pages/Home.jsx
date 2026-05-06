@@ -159,6 +159,7 @@ const Home = () => {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
+                aria-label={`Filter by category: ${cat}`}
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2.5 rounded-full text-sm font-medium capitalize ${
                   category === cat
@@ -206,6 +207,7 @@ const Home = () => {
               {/* Prev */}
               <button
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                areia-label="Previous page"
                 disabled={currentPage === 1}
                 className="px-3 py-1 rounded border disabled:opacity-40"
               >
@@ -219,6 +221,7 @@ const Home = () => {
                 return (
                   <button
                     key={page}
+                    aria-label="preview-button"
                     onClick={() => setCurrentPage(page)}
                     className={`px-3 py-1 rounded border transition ${
                       currentPage === page
@@ -233,6 +236,7 @@ const Home = () => {
 
               {/* Next */}
               <button
+              aria-label="next-button"
                 onClick={() =>
                   setCurrentPage((p) => Math.min(p + 1, totalPages || 1))
                 }

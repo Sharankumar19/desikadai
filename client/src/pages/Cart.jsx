@@ -22,7 +22,7 @@ const Cart = () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="flex items-center justify-between mb-8">
         <h1 className="font-display text-3xl font-bold text-stone-800">Your Cart</h1>
-        <button onClick={clearCart} className="text-sm text-red-400 hover:text-red-600 transition-colors flex items-center gap-1">
+        <button aria-label='clear-all' onClick={clearCart} className="text-sm text-red-400 hover:text-red-600 transition-colors flex items-center gap-1">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
@@ -48,6 +48,7 @@ const Cart = () => {
                   {/* Quantity Controls */}
                   <div className="flex items-center gap-2 bg-forest-50 rounded-full px-1 py-1">
                     <button
+                    aria-label='update-quantity'
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-forest-100 transition-colors text-moss font-bold"
                     >
@@ -55,6 +56,7 @@ const Cart = () => {
                     </button>
                     <span className="w-6 text-center font-semibold text-stone-700 text-sm">{item.quantity}</span>
                     <button
+                    aria-label='minus-quantity'
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-forest-100 transition-colors text-moss font-bold"
                     >
@@ -68,6 +70,7 @@ const Cart = () => {
                     </span>
                     <button
                       onClick={() => removeFromCart(item.id)}
+                      aria-label='remove-cart'
                       className="text-red-300 hover:text-red-500 transition-colors p-1"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
