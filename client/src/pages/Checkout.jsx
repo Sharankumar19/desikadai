@@ -22,7 +22,6 @@ const Checkout = () => {
 
   const deliveryFee = stateDeliveryCharges[form.state] || 0;
   const grandTotal = cartTotal + deliveryFee;
-  console.log(grandTotal, "grandTotal");
 
   if (cartItems?.length === 0) {
     return (
@@ -91,7 +90,6 @@ const Checkout = () => {
       subtotal: cartTotal,
       deliveryFee: deliveryFee,
     });
-    console.log(total, "total");
 
     navigate("/payment");
   };
