@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useCheckout } from "../context/CheckoutContext";
 import ReCAPTCHA from "react-google-recaptcha";
+import { stateDeliveryCharges } from "../data/state";
 
 const Checkout = () => {
   const { cartItems, cartTotal } = useCart();
@@ -14,12 +15,14 @@ const Checkout = () => {
     phone: "",
     email: "",
     address: "",
+    state: "",
   });
   const [errors, setErrors] = useState({});
   const [captcha, setCaptcha] = useState(null);
 
-  const deliveryFee = cartTotal >= 999 ? 0 : 0;
+  const deliveryFee = stateDeliveryCharges[form.state] || 0;
   const grandTotal = cartTotal + deliveryFee;
+  console.log(grandTotal, "grandTotal");
 
   if (cartItems?.length === 0) {
     return (
@@ -46,6 +49,10 @@ const Checkout = () => {
     if (!form.address.trim() || form.address.trim().length < 10)
       newErrors.address =
         "Enter a complete delivery address (min 10 characters)";
+    if (!form.state.trim()) {
+      newErrors.state = "Enter your state";
+    }
+
     return newErrors;
   };
 
@@ -54,34 +61,6 @@ const Checkout = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   // ✅ Step 1: Validation (OLD CODE)
-  //   const validationErrors = validate();
-  //   if (Object.keys(validationErrors).length > 0) {
-  //     setErrors(validationErrors);
-  //     return;
-  //   }
-
-  //   // ✅ Step 2: Prepare order details
-  //   const orderDetails = cartItems.map(item =>
-  //     `• ${item.name} - Qty: ${item.quantity} - ₹${item.price}`
-  //   ).join('\n');
-
-  //   const total = cartItems.reduce(
-  //     (sum, item) => sum + item.price * item.quantity,
-  //     0
-  //   );
-  //     setCheckoutData({
-  //       customer: form,
-  //       items: cartItems,
-  //       totalAmount: total
-  //     });
-
-  //     navigate('/payment'); // 👈 old behavior restored
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,9 +86,12 @@ const Checkout = () => {
     setCheckoutData({
       customer: form,
       items: cartItems,
-      totalAmount: total,
+      totalAmount: grandTotal,
       captchaToken: captcha, // optional (for backend)
+      subtotal: cartTotal,
+      deliveryFee: deliveryFee,
     });
+    console.log(total, "total");
 
     navigate("/payment");
   };
@@ -192,6 +174,34 @@ const Checkout = () => {
                 )}
               </div>
 
+              {/* options */}
+              <div>
+                <label className="block text-sm font-medium text-stone-700 mb-1.5">
+                  State *
+                </label>
+
+                <select
+                  name="state"
+                  value={form.state}
+                  onChange={handleChange}
+                  className={`input-field ${
+                    errors.state ? "border-red-300 focus:ring-red-300" : ""
+                  }`}
+                >
+                  <option value="">Select State</option>
+
+                  {Object.keys(stateDeliveryCharges).map((state, index) => (
+                    <option key={index} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+
+                {errors.state && (
+                  <p className="text-red-500 text-xs mt-1">{errors.state}</p>
+                )}
+              </div>
+
               {/* Address */}
               <div>
                 <label className="block text-sm font-medium text-stone-700 mb-1.5">
@@ -222,7 +232,7 @@ const Checkout = () => {
               </div>
 
               <button
-              aria-label="checkout"
+                aria-label="checkout"
                 type="submit"
                 className="btn-primary w-full py-3 text-base mt-4"
               >

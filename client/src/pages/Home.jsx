@@ -116,7 +116,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center md:justify-between gap-4 text-sm text-stone-600">
             {[
-              ["🚚", "Free delivery"],
+              ["🚚", "Free delivery for all over tamil nadu"],
               ["🌿", "100% naturally grown"],
               ["📦", "Safe & secure packaging"],
             ].map(([icon, text]) => (

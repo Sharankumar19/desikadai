@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
           src={product.images?.[0]}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
+          loading="eager"
           onError={(e) => {
             e.target.src =
               "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop";

@@ -1,25 +1,28 @@
-
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import emailjs from '@emailjs/browser';
-import { useCart } from '../context/CartContext';
-import { useCheckout } from '../context/CheckoutContext';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import emailjs from "@emailjs/browser";
+import { useCart } from "../context/CartContext";
+import { useCheckout } from "../context/CheckoutContext";
 
 const Payment = () => {
   const { checkoutData } = useCheckout();
   const { clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [orderId, setOrderId] = useState('');
-  const [error, setError] = useState('');
+  const [orderId, setOrderId] = useState("");
+  const [error, setError] = useState("");
 
   if (!checkoutData) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <p className="text-5xl mb-4">⚠️</p>
-        <h2 className="text-2xl font-bold text-stone-700 mb-3">No checkout data found</h2>
-        <Link to="/checkout" className="btn-primary inline-block mt-4">Go to Checkout</Link>
+        <h2 className="text-2xl font-bold text-stone-700 mb-3">
+          No checkout data found
+        </h2>
+        <Link to="/checkout" className="btn-primary inline-block mt-4">
+          Go to Checkout
+        </Link>
       </div>
     );
   }
@@ -27,14 +30,17 @@ const Payment = () => {
   // Send Invoice via EmailJS
   const sendInvoiceEmail = async (orderIdValue, paymentId) => {
     try {
-      console.log('📧 Preparing to send invoice email...');
-      console.log('Order ID:', orderIdValue);
-      console.log('Payment ID:', paymentId);
-      console.log('Customer Email:', checkoutData.customer.email);
+      console.log("📧 Preparing to send invoice email...");
+      console.log("Order ID:", orderIdValue);
+      console.log("Payment ID:", paymentId);
+      console.log("Customer Email:", checkoutData.customer.email);
 
       const itemsText = (checkoutData.items || [])
-        .map((item) => `${item.name} x${item.quantity} = ₹${(item.price * item.quantity).toFixed(2)}`)
-        .join('\n');
+        .map(
+          (item) =>
+            `${item.name} x${item.quantity} = ₹${(item.price * item.quantity).toFixed(2)}`,
+        )
+        .join("\n");
 
       const templateParams = {
         to_email: checkoutData.customer.email,
@@ -43,9 +49,9 @@ const Payment = () => {
         customer_address: checkoutData.customer.address,
         order_id: orderIdValue,
         payment_id: paymentId,
-        order_date: new Date().toLocaleString('en-IN'),
+        order_date: new Date().toLocaleString("en-IN"),
         items_list: itemsText,
-        total_amount: checkoutData.totalAmount.toFixed(2),
+        total_amount: checkoutData.subtotal + checkoutData.deliveryFee.toFixed(2),
         items_html: checkoutData.items
           .map(
             (item) => `
@@ -54,67 +60,67 @@ const Payment = () => {
             <td style="padding:10px;border-bottom:1px solid #e8f5e9;text-align:center;">${item.quantity}</td>
             <td style="padding:10px;border-bottom:1px solid #e8f5e9;text-align:right;">₹${item.price}</td>
             <td style="padding:10px;border-bottom:1px solid #e8f5e9;text-align:right;">₹${(item.price * item.quantity).toFixed(2)}</td>
-          </tr>`
+          </tr>`,
           )
-          .join(''),
+          .join(""),
       };
 
-      console.log('📤 Sending email with params:', templateParams);
+      console.log("📤 Sending email with params:", templateParams);
 
       const response = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_s9u9chn',
-        import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || 'template_7dxs87j',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_s9u9chn",
+        import.meta.env.VITE_ORDER_EMAILJS_TEMPLATE_ID || "template_7dxs87j",
         templateParams,
-         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
 
-      console.log('✅ Invoice email sent successfully!', response);
+      console.log("✅ Invoice email sent successfully!", response);
       return true;
     } catch (err) {
-      console.error('❌ Email sending failed:', err);
-      console.error('Error message:', err.message);
+      console.error("❌ Email sending failed:", err);
+      console.error("Error message:", err.message);
       return false;
     }
   };
 
   const handleRazorpayPayment = async () => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      console.log('🔥 Starting Razorpay payment flow...');
+      console.log("🔥 Starting Razorpay payment flow...");
 
       // Step 1: Create order on backend
       const orderResponse = await axios.post(
         `https://desikadai-backend.onrender.com/api/payment/create-order`,
-        { amount: checkoutData.totalAmount }
+        { amount: checkoutData.totalAmount },
       );
 
       if (!orderResponse.data.success) {
-        throw new Error('Failed to create payment order');
+        throw new Error("Failed to create payment order");
       }
 
       const razorpayOrder = orderResponse.data.order;
-      console.log('✅ Razorpay order created:', razorpayOrder.id);
+      console.log("✅ Razorpay order created:", razorpayOrder.id);
 
       // Step 2: Open Razorpay checkout
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
-        name: 'Desikadai 🌿',
-        description: 'Desikadai Order Payment',
+        name: "Desikadai 🌿",
+        description: "Desikadai Order Payment",
         order_id: razorpayOrder.id,
 
         handler: async function (response) {
-          console.log('✅ Payment successful!');
-          console.log('Razorpay Payment ID:', response.razorpay_payment_id);
-            setSuccess(true);
-            clearCart();
+          console.log("✅ Payment successful!");
+          console.log("Razorpay Payment ID:", response.razorpay_payment_id);
+          setSuccess(true);
+          clearCart();
 
           try {
             // Step 3: Verify payment on backend and create order
-            console.log('🔄 Verifying payment on server...');
+            console.log("🔄 Verifying payment on server...");
             const verifyResponse = await axios.post(
               `https://desikadai-backend.onrender.com/api/payment/verify-payment`,
               {
@@ -129,37 +135,44 @@ const Payment = () => {
                   quantity: item.quantity,
                   image: item.image,
                 })),
-                totalAmount: checkoutData.totalAmount,
-              }
+                totalAmount: checkoutData.subtotal + checkoutData.deliveryFee,
+              },
             );
 
             if (verifyResponse.data.success) {
-              console.log('✅ Payment verified successfully');
+              console.log("✅ Payment verified successfully");
 
               const newOrderId = verifyResponse.data.data.orderId;
-              console.log('Order ID from server:', newOrderId);
+              console.log("Order ID from server:", newOrderId);
               setOrderId(newOrderId);
 
               // Step 4: Send invoice email AFTER payment verification
-              console.log('📧 Sending invoice email...');
-              const emailSent = await sendInvoiceEmail(newOrderId, response.razorpay_payment_id);
-              
+              console.log("📧 Sending invoice email...");
+              const emailSent = await sendInvoiceEmail(
+                newOrderId,
+                response.razorpay_payment_id,
+              );
+
               if (emailSent) {
-                console.log('📧 Email sent successfully');
+                console.log("📧 Email sent successfully");
               } else {
-                console.warn('⚠️ Email sending failed, but order was successful');
+                console.warn(
+                  "⚠️ Email sending failed, but order was successful",
+                );
               }
 
               // setSuccess(true);
               // clearCart();
             } else {
-              throw new Error(verifyResponse.data.message || 'Payment verification failed');
+              throw new Error(
+                verifyResponse.data.message || "Payment verification failed",
+              );
             }
           } catch (verifyErr) {
-            console.error('❌ Verification error:', verifyErr.message);
+            console.error("❌ Verification error:", verifyErr.message);
             setError(
-              'Payment verified but order creation failed. Please contact support with Payment ID: ' +
-                response.razorpay_payment_id
+              "Payment verified but order creation failed. Please contact support with Payment ID: " +
+                response.razorpay_payment_id,
             );
           }
         },
@@ -171,13 +184,13 @@ const Payment = () => {
         },
 
         theme: {
-          color: '#16a34a',
+          color: "#16a34a",
         },
 
         modal: {
           ondismiss: function () {
-            console.log('❌ User closed payment modal');
-            setError('Payment cancelled. Please try again.');
+            console.log("❌ User closed payment modal");
+            setError("Payment cancelled. Please try again.");
           },
         },
       };
@@ -185,8 +198,12 @@ const Payment = () => {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      console.error('❌ Payment error:', err);
-      setError(err.response?.data?.message || err.message || 'Payment initiation failed');
+      console.error("❌ Payment error:", err);
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Payment initiation failed",
+      );
     } finally {
       setLoading(false);
     }
@@ -198,13 +215,19 @@ const Payment = () => {
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <div className="p-10 border rounded-xl shadow bg-green-50">
           <div className="text-5xl mb-4">✅</div>
-          <h2 className="text-3xl font-bold mb-3 text-green-600">Order Placed! 🌿</h2>
-          <p className="mb-2">Thank you, <strong>{checkoutData.customer.name}</strong></p>
+          <h2 className="text-3xl font-bold mb-3 text-green-600">
+            Order Placed! 🌿
+          </h2>
+          <p className="mb-2">
+            Thank you, <strong>{checkoutData.customer.name}</strong>
+          </p>
           <p className="text-sm mb-4 text-gray-600">
-            Order ID: <span className="font-semibold text-gray-800">{orderId}</span>
+            Order ID:{" "}
+            <span className="font-semibold text-gray-800">{orderId}</span>
           </p>
           <p className="text-sm mb-6 text-gray-600">
-            📧 Invoice has been sent to <strong>{checkoutData.customer.email}</strong>
+            📧 Invoice has been sent to{" "}
+            <strong>{checkoutData.customer.email}</strong>
           </p>
           <Link to="/" className="btn-primary inline-block">
             Continue Shopping
@@ -231,9 +254,27 @@ const Payment = () => {
           )}
 
           {/* Amount Summary */}
-          <div className="bg-gray-50 p-4 rounded mb-4">
-            <p className="text-sm text-gray-600 mb-2">Payment Amount</p>
-            <p className="text-2xl font-bold text-green-600">₹{checkoutData.totalAmount}</p>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span>Subtotal</span>
+              <span>₹{checkoutData.subtotal}</span>
+            </div>
+
+            <div className="flex justify-between text-sm">
+              <span>Delivery</span>
+              <span>
+                {checkoutData.deliveryFee === 0
+                  ? "FREE"
+                  : `₹${checkoutData.deliveryFee}`}
+              </span>
+            </div>
+
+            <div className="border-t pt-2 flex justify-between font-bold text-lg">
+              <span>Total</span>
+              <span className="text-green-600">
+                ₹{(checkoutData.subtotal + checkoutData.deliveryFee).toFixed(2)}
+              </span>
+            </div>
           </div>
 
           {/* Info */}
@@ -251,11 +292,11 @@ const Payment = () => {
             disabled={loading}
             className={`w-full py-3 rounded font-semibold transition ${
               loading
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-green-600 text-white hover:bg-green-700'
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-green-600 text-white hover:bg-green-700"
             }`}
           >
-            {loading ? '⏳ Processing...' : '💳 Pay with Razorpay'}
+            {loading ? "⏳ Processing..." : "💳 Pay with Razorpay"}
           </button>
 
           <p className="text-xs text-gray-500 mt-4 text-center">
