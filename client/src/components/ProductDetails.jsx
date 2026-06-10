@@ -5,6 +5,7 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import LiveVisitors from './LiveVisitors';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -105,6 +106,8 @@ const ProductDetails = () => {
               {product.category}
             </span>
           </p>
+             <LiveVisitors />
+             <br />
           <button
   onClick={handleAdd}
   aria-label="add-to-cart"
@@ -127,6 +130,7 @@ const ProductDetails = () => {
 </button>
         </div>
       </div>
+   
     </div>
   );
 };
