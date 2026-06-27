@@ -1,9 +1,9 @@
-const Product = require('../models/Product');
-const { Op } = require('sequelize');
+const Product = require("../models/Product");
+const { Op } = require("sequelize");
 
 const SEED_PRODUCTS = [
   {
-    name: '12x6 Inch Round Grow Bag Pack of 4 | Wide Flat HDPE Plant Bag for Herbs & Terrace Garden',
+    name: "12x6 Inch Round Grow Bag Pack of 4 | Wide Flat HDPE Plant Bag for Herbs & Terrace Garden",
     description: `Introducing the 12x6 Inch Wide Flat Round Grow Bags – Pack of 4, specially designed for gardeners who want maximum planting area in compact spaces. The unique wide and shallow shape is ideal for herbs like mint, coriander, and basil, as well as leafy greens like spinach, methi, and lettuce that thrive in shallow soil beds.
 
 Built with premium dual-layer HDPE non-woven fabric — green on the outside, orange on the inside — these grow bags offer exceptional durability, UV protection, and moisture retention while allowing excess water to drain freely. The breathable fabric promotes natural air pruning for stronger, healthier root systems.
@@ -17,15 +17,15 @@ Perfect for terrace gardens, balconies, windowsills, and kitchen gardens, these 
       "✅ Air Pruning: Healthier roots, faster growth",
       "✅ Superior Drainage: Prevents waterlogging & root rot",
       "✅ Reusable & UV Resistant: Built for Indian climate, lasts seasons",
-      "✅ Ideal For: Terrace, balcony, kitchen garden & windowsill gardening"
+      "✅ Ideal For: Terrace, balcony, kitchen garden & windowsill gardening",
     ],
     price: 599,
     images: [
       "https://res.cloudinary.com/dyhe8bh7q/image/upload/v1774669513/growbag12x6_gezerp.jpg",
     ],
-    category: 'grow bag',
+    category: "grow bag",
     featured: true,
-    quantity: 100
+    quantity: 100,
   },
 ];
 
@@ -35,10 +35,10 @@ const seedProducts = async () => {
     const count = await Product.count();
     if (count === 0) {
       await Product.bulkCreate(SEED_PRODUCTS);
-      console.log('🌱 Products seeded successfully');
+      console.log("🌱 Products seeded successfully");
     }
   } catch (err) {
-    console.error('Seed error:', err);
+    console.error("Seed error:", err);
   }
 };
 
@@ -48,27 +48,123 @@ const getProducts = async (req, res) => {
     const { search, category } = req.query;
     let where = {};
     if (search) {
-  where.name = { [Op.like]: `%${search}%` };
-}
-    if (category && category !== 'all') where.category = category;
+      where.name = { [Op.like]: `%${search}%` };
+    }
+    if (category && category !== "all") where.category = category;
     const products = await Product.findAll({
       where,
-      order: [['createdAt', 'DESC']],
+      order: [["createdAt", "DESC"]],
     });
     res.json({ success: true, data: products });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Failed to fetch products', error: err.message });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Failed to fetch products",
+        error: err.message,
+      });
   }
 };
 
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findByPk(req.params.id);
-    if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+    if (!product)
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
     res.json({ success: true, data: product });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Error fetching product', error: err.message });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Error fetching product",
+        error: err.message,
+      });
   }
 };
 
-module.exports = { getProducts, getProductById, seedProducts };
+// Create Product
+const createProduct = async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      data: product,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to create product",
+      error: err.message,
+    });
+  }
+};
+
+// Update Product
+const updateProduct = async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    await product.update(req.body);
+
+    res.json({
+      success: true,
+      message: "Product updated successfully",
+      data: product,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to update product",
+      error: err.message,
+    });
+  }
+};
+
+// Delete Product
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    await product.destroy();
+
+    res.json({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete product",
+      error: err.message,
+    });
+  }
+};
+
+module.exports = {
+  getProducts,
+  getProductById,
+  seedProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
