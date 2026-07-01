@@ -8,15 +8,7 @@ import pot from "../image/pot.avif";
 import soil from "../image/soil.avif";
 import ferti from "../image/ferti.avif";
 import LiveVisitors from "../components/LiveVisitHome";
-
-// const CATEGORIES = [
-//   "all",
-//   "grow bag",
-//   "Laundry Essentials",
-//   "fertilizers",
-//   "skin care",
-//   "seeds",
-// ];
+import GoogleAd from "../components/GoogleAd";
 
 const CATEGORIES = [
   {
@@ -48,8 +40,8 @@ const CATEGORIES = [
     img: soil,
   },
   {
-    label: "plants",
-    img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=200&h=200&fit=crop&crop=center",
+    label: "oil",
+    img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200&h=200&fit=crop&crop=center",
   },
 ];
 
@@ -429,6 +421,8 @@ const Home = () => {
           </>
         )}
       </section>
+
+      <GoogleAd />
     </div>
   );
 };

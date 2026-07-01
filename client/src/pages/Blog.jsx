@@ -52,59 +52,6 @@ const Blog = () => {
   const [tab, setTab] = useState("feedback");
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <p className="text-sage text-sm font-medium tracking-widest uppercase mb-3">
-          🌱 Plant Knowledge
-        </p>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-4">
-          The Green Journal
-        </h1>
-        <p className="text-stone-500 max-w-xl mx-auto">
-          Tips, guides, and stories about growing your green space — from
-          beginner to expert.
-        </p>
-      </div>
-
-      {/* Featured Post */}
-      <div className="card overflow-hidden mb-10 group">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="overflow-hidden h-64 md:h-auto">
-            <img
-              src={BLOGS[0].image}
-              alt={BLOGS[0].title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          <div className="p-8 md:p-10 flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-4">
-              <span
-                className={`text-xs font-medium px-3 py-1 rounded-full ${categoryColors[BLOGS[0].category]}`}
-              >
-                {BLOGS[0].category}
-              </span>
-              <span className="text-xs bg-red-500 px-3 py-1  text-white rounded-full animate-pulse">
-                comming soon
-              </span>
-            </div>
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-stone-800 mb-4 leading-tight">
-              {BLOGS[0].title}
-            </h2>
-            <p className="text-stone-500 leading-relaxed mb-6">
-              {BLOGS[0].excerpt}
-            </p>
-            <div className="flex items-center justify-between">
-              <div className="text-xs text-stone-400">
-                {BLOGS[0].date} · {BLOGS[0].readTime}
-              </div>
-              <button aria-label="read-more" className="btn-primary text-sm px-5 py-2">
-                Read More →
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Grid */}
       <div className="flex justify-center gap-3 mb-10">
         {["gallery", "feedback", "videos"].map((t) => (
