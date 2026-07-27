@@ -12,6 +12,7 @@ import Blog from './pages/Blog';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductDetails from './components/ProductDetails';
+import Construction from './components/construction';
 
 function App() {
   useEffect(() => {
@@ -44,10 +45,11 @@ function App() {
       <CartProvider>
         <CheckoutProvider>
           <div className="min-h-screen flex flex-col">
-            <Navbar />
+            {/* <Navbar /> */}
             <main className="flex-1">
               <Routes>
-                <Route path="/" element={<Home />} />
+                {/* <Route path="/" element={<Home />} /> */}
+                <Route path="/" element={<Construction />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/payment" element={<Payment />} />
@@ -57,7 +59,7 @@ function App() {
                 <Route path="/product/:id" element={<ProductDetails />} />
               </Routes>
             </main>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </CheckoutProvider>
       </CartProvider>
