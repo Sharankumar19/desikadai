@@ -45,11 +45,11 @@ function App() {
       <CartProvider>
         <CheckoutProvider>
           <div className="min-h-screen flex flex-col">
-            {/* <Navbar /> */}
+            <Navbar />
             <main className="flex-1">
               <Routes>
-                {/* <Route path="/" element={<Home />} /> */}
-                <Route path="/" element={<Construction />} />
+                <Route path="/" element={<Home />} />
+                {/* <Route path="/" element={<Construction />} />\ */}
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/payment" element={<Payment />} />
@@ -59,7 +59,7 @@ function App() {
                 <Route path="/product/:id" element={<ProductDetails />} />
               </Routes>
             </main>
-            {/* <Footer /> */}
+            <Footer />
           </div>
         </CheckoutProvider>
       </CartProvider>

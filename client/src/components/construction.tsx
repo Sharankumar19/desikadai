@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import "../components/styles/construction.css";
+// import "../components/styles/construction.css";
 
 const TASKS = [
   "sharpening the khurpi…",
