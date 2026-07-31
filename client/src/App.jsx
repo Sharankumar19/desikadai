@@ -15,30 +15,30 @@ import ProductDetails from './components/ProductDetails';
 import Construction from './components/construction';
 
 function App() {
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && e.key === "I") ||
-        (e.ctrlKey && e.shiftKey && e.key === "J") ||
-        (e.ctrlKey && e.key === "U")
-      ) {
-        e.preventDefault();
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyDown = (e) => {
+  //     if (
+  //       e.key === "F12" ||
+  //       (e.ctrlKey && e.shiftKey && e.key === "I") ||
+  //       (e.ctrlKey && e.shiftKey && e.key === "J") ||
+  //       (e.ctrlKey && e.key === "U")
+  //     ) {
+  //       e.preventDefault();
+  //     }
+  //   };
 
-    const disableRightClick = (e) => {
-      e.preventDefault();
-    };
+  //   const disableRightClick = (e) => {
+  //     e.preventDefault();
+  //   };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("contextmenu", disableRightClick);
+  //   document.addEventListener("keydown", handleKeyDown);
+  //   document.addEventListener("contextmenu", disableRightClick);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("contextmenu", disableRightClick);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //     document.removeEventListener("contextmenu", disableRightClick);
+  //   };
+  // }, []);
 
   return (
     <BrowserRouter>
